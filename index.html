@@ -153,6 +153,47 @@
             100% { clip-path: inset(80% 0 10% 0); }
         }
 
+        /* SUBTLE GLITCH FOR SECTION TITLES */
+        .glitch-section {
+            position: relative;
+            display: inline-block;
+        }
+
+        .glitch-section::before,
+        .glitch-section::after {
+            content: attr(data-text);
+            position: absolute;
+            inset: 0;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .glitch-section::before {
+            transform: translate(1px, 0);
+            animation: glitch-section-left 4s infinite linear alternate-reverse;
+        }
+
+        .glitch-section::after {
+            transform: translate(-1px, 0);
+            animation: glitch-section-right 5s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-section-left {
+            0% { clip-path: inset(20% 0 70% 0); }
+            25% { clip-path: inset(60% 0 20% 0); }
+            50% { clip-path: inset(10% 0 80% 0); }
+            75% { clip-path: inset(40% 0 40% 0); }
+            100% { clip-path: inset(20% 0 70% 0); }
+        }
+
+        @keyframes glitch-section-right {
+            0% { clip-path: inset(70% 0 20% 0); }
+            25% { clip-path: inset(30% 0 50% 0); }
+            50% { clip-path: inset(80% 0 10% 0); }
+            75% { clip-path: inset(50% 0 30% 0); }
+            100% { clip-path: inset(70% 0 20% 0); }
+        }
+
         /* EVENTS */
         .events-list {
             display:grid;
@@ -171,10 +212,37 @@
         .event:hover { transform:translateY(-3px); }
 
         .event-date {
-            border:1px solid #fff;
-            text-align:center;
-            padding:10px;
-            font-size:0.8rem;
+            position: relative;
+            border: 1px solid #fff;
+            text-align: center;
+            padding: 10px;
+            font-size: 0.8rem;
+            
+            background: #000;
+            overflow: hidden;
+        }
+
+        /* EVENT BACKGROUND IMAGE */
+        .event-bg {
+            background-image: var(--event-bg);
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* DARK OVERLAY FOR READABILITY */
+        .event-date::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+            z-index: 0;
+        }
+
+        /* TEXT ABOVE OVERLAY */
+        .event-date * ,
+        .event-date {
+            position: relative;
+            z-index: 1;
         }
 
         /* ARTISTS */
@@ -270,6 +338,39 @@
             transform:translateY(0);
         }
 
+        /* EVENT ACTIONS */
+        .event-actions {
+            margin-top: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .event-btn {
+            border: 1px solid #fff;
+            color: #fff;
+            text-decoration: none;
+            padding: 6px 14px;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            transition: 0.3s;
+        }
+
+        .event-btn:hover {
+            background: #fff;
+            color: #000;
+        }
+
+        .event-btn.secondary {
+            border-color: #555;
+            color: #aaa;
+        }
+
+        .event-btn.secondary:hover {
+            background: #555;
+            color: #000;
+        }
+
         /* FOOTER */
         footer {
             border-top:1px solid var(--border-color);
@@ -313,7 +414,6 @@
             }
         }
 
-
     </style>
 </head>
 
@@ -348,24 +448,37 @@
 
     <!-- EVENTS -->
     <section id="events" class="fade-up">
-        <h2 class="section-title">NEXT EVENTS</h2>
+        <h2 class="section-title glitch-section" data-text="NEXT EVENTS">NEXT EVENTS</h2>
         <div class="events-list">
 
             <div class="event">
-                <div class="event-date">MAR 15<br>PALMA</div>
-                <div>
-                    <strong>ENIGMA NIGHT</strong><br>
-                    Location TBA<br>
-                    DJ 001 / DJ 002
+                <div class="event-date event-bg" style="--event-bg:url('img/logo.jpg')">
+                    MAR 15<br>PALMA
+                </div>                <div>
+                    <strong>ENIGMA UNDERGROUND NIGHT</strong><br>
+                    POLIGONO SON HUGO<br>
+                    ANKO / ANDREO HUCHT / GUEST
+                    <div class="event-actions">
+                        <a href="https://www.instagram.com/enigma_coll3ctive/" class="event-btn secondary">POST</a>
+                        <a href="https://www.instagram.com/enigma_coll3ctive/"
+                           target="_blank"
+                           class="event-btn">BUY TICKET</a>
+                    </div>
                 </div>
             </div>
 
             <div class="event">
-                <div class="event-date">APR 02<br>BARCELONA</div>
+                <div class="event-date">APR 02<br>PALMA</div>
                 <div>
-                    <strong>ARCHIVE SESSION</strong><br>
-                    Secret Warehouse<br>
-                    DJ 003 / GUEST
+                    <strong>DISASTER AFTER</strong><br>
+                    SECRET<br>
+                    JASX / GUEST
+                    <div class="event-actions">
+                        <a href="https://www.instagram.com/enigma_coll3ctive/" class="event-btn secondary">POST</a>
+                        <a href="https://www.instagram.com/enigma_coll3ctive/"
+                           target="_blank"
+                           class="event-btn">BUY TICKET</a>
+                    </div>
                 </div>
             </div>
 
@@ -374,7 +487,9 @@
 
     <!-- ARTISTS -->
     <section id="artists" class="fade-up">
-        <h2 class="section-title">CORE ARTISTS</h2>
+        <h2 class="section-title glitch-section" data-text="CORE ARTISTS">
+            CORE ARTISTS
+        </h2>
         <div class="roster-grid">
 
             <div class="dj-card">
@@ -414,7 +529,7 @@
 
     <!-- SOUND -->
     <section id="sound" class="fade-up">
-        <h2 class="section-title">OUR SOUND</h2>
+        <h2 class="section-title glitch-section" data-text="OUR SOUND">OUR SOUND</h2>
         <p>// SELECTED TRANSMISSIONS FROM THE ARCHIVE</p>
 
         <div class="sound-grid">
@@ -470,7 +585,7 @@
 
     <!-- SHOP -->
     <section id="shop" class="fade-up">
-        <h2 class="section-title">SHOP</h2>
+        <h2 class="section-title glitch-section" data-text="SHOP">SHOP</h2>
 
         <div class="shop-grid">
 
@@ -499,7 +614,7 @@
     <p>UNDERGROUND CULTURE PLATFORM</p>
     <p>PALMA · SPAIN · EUROPE</p>
     <p>INFO@ENIGMACOLLECTIVE.COM</p>
-    <p>INSTAGRAM / SOUNDCLOUD / WHATSAPP</p>
+    <p><a href="https://www.instagram.com/enigma_coll3ctive/" target="_blank">INSTAGRAM</a> / <a href="https://soundcloud.com/anko_p" target="_blank">SOUNDCLOUD</a> / <a href="https://wa.me/34623483148" target="_blank">WHATSAPP</a></p>
 </footer>
 
 <!-- SCROLL ANIMATION -->
