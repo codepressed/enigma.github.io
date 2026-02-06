@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ENIGMA COLLECTIVE | ARCHIVE</title>
+    <style>
+        :root {
+            --bg-color: #000000;
+            --text-color: #ffffff;
+            --glitch-red: #ff00c1;
+            --glitch-blue: #00fff9;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            text-transform: uppercase;
+        }
+
+        /* Scanline Overlay Effect */
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 10;
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+        }
+
+        .container {
+            padding: 5vw;
+            max-width: 1200px;
+        }
+
+        header {
+            height: 80vh;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Glitch Effect */
+        .glitch {
+            font-size: 8vw;
+            font-weight: bold;
+            position: relative;
+            display: inline-block;
+        }
+
+        .glitch::before, .glitch::after {
+            content: "ENIGMA COLLECTIVE";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg-color);
+        }
+
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 var(--glitch-red);
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim 5s infinite linear alternate-reverse;
+        }
+
+        .glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 var(--glitch-blue);
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim2 5s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim {
+            0% { clip: rect(31px, 9999px, 94px, 0); }
+            20% { clip: rect(62px, 9999px, 42px, 0); }
+            100% { clip: rect(10px, 9999px, 85px, 0); }
+        }
+
+        @keyframes glitch-anim2 {
+            0% { clip: rect(65px, 9999px, 100px, 0); }
+            20% { clip: rect(10px, 9999px, 30px, 0); }
+            100% { clip: rect(88px, 9999px, 20px, 0); }
+        }
+
+        nav { margin-top: 20px; }
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            margin-right: 20px;
+            font-size: 1.2rem;
+            border: 1px solid var(--text-color);
+            padding: 5px 15px;
+            transition: all 0.3s;
+        }
+
+        nav a:hover {
+            background: var(--text-color);
+            color: var(--bg-color);
+        }
+
+        .section-title {
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+            margin-top: 100px;
+            letter-spacing: 5px;
+        }
+
+        .roster-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 50px;
+        }
+
+        .dj-card {
+            filter: grayscale(100%);
+            transition: filter 0.3s;
+            border: 1px solid #222;
+            padding: 10px;
+        }
+
+        .dj-card:hover {
+            filter: grayscale(0%);
+            border-color: #fff;
+        }
+
+        .dj-image {
+            width: 100%;
+            aspect-ratio: 1/1;
+            background: #111; /* Placeholder */
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <div>
+                <div class="glitch" data-text="ENIGMA COLLECTIVE">ENIGMA COLLECTIVE</div>
+                <nav>
+                    <a href="#roster">ROSTER</a>
+                    <a href="#audio">AUDIO</a>
+                    <a href="#contact">CONTACT</a>
+                </nav>
+            </div>
+        </header>
+
+        <section id="roster">
+            <h2 class="section-title">THE ROSTER</h2>
+            <div class="roster-grid">
+                <div class="dj-card">
+                    <div class="dj-image"></div>
+                    <p>DJ NAME 001</p>
+                </div>
+                <div class="dj-card">
+                    <div class="dj-image"></div>
+                    <p>DJ NAME 002</p>
+                </div>
+                <div class="dj-card">
+                    <div class="dj-image"></div>
+                    <p>DJ NAME 003</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="audio" style="margin-top: 100px;">
+            <h2 class="section-title">TRANSMISSIONS</h2>
+            <p>// LOADING RECENT MIXES...</p>
+            </section>
+    </div>
+
+</body>
+</html>
